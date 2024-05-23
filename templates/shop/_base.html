@@ -1,0 +1,39 @@
+<!-- templates/_base.html -->
+
+{% load compress %}
+<!--  -->
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="shortcut icon" href="{% static 'src/images/onlineshopping.ico' %}" />
+    {% compress css %}
+    <link rel="stylesheet" href="{% static 'src/css/output.css' %}" />
+    {% endcompress %}
+  </head>
+  {% block scripts %}
+  <script src="{% static 'src/js/main.js'%}" defer></script>
+  {%endblock scripts%}
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+  <!-- <script src="../../node_modules/flowbite/dist/flowbite.min.js"></script> -->
+  <body class="bg-green-50">
+    <!-- header -->
+    <div class="p-10">{% include 'shop/header.html'%}</div>
+    <!-- header -->
+
+    <!-- body -->
+
+    {% block index %}{% endblock index %}
+
+    <!-- body -->
+
+    <!-- footer -->
+    <div class="p-10">{% include 'shop/footer.html' %}</div>
+    <!-- footer -->
+  </body>
+</html>
