@@ -39,9 +39,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'compressor',
     'shop',
+
 ]
 
 MIDDLEWARE = [
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -110,9 +112,16 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
-
-LANGUAGE_CODE = 'en-us'
-
+from django.utils.translation import gettext_lazy as _
+import os
+LANGUAGE_CODE = 'vi'
+LANGUAGES = (
+    ('en', _('English')),
+    ('vi', _('Vietnamese')),
+)
+LOCALE_PATHS = (
+    os.path.join(BASE_DIR,'locale/'),
+)
 TIME_ZONE = 'UTC'
 
 USE_I18N = True

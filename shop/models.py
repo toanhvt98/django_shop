@@ -23,8 +23,8 @@ class ProductionType(models.Model):
     CLOTHES_PRODUCT = "CP"
     SHOES_PRODUCT = "SP"
     STATUS_CHOICES = [
-        (ELECTRONICS_PRODUCT, 'Gaming'),
-        (CLOTHES_PRODUCT, 'Clothes'),
+        (ELECTRONICS_PRODUCT, 'Electronics'),
+        (CLOTHES_PRODUCT, 'Clothing'),
         (SHOES_PRODUCT, 'Shoes'),
     ]
     product_type = models.CharField(choices=STATUS_CHOICES,max_length=5)

@@ -1,0 +1,83 @@
+{% extends "shop/_base.html" %}
+<!--  -->
+{% block title %}Kiritoo's Shop{% endblock title %}
+<!--  -->
+{% block index %}
+<!--  -->
+{% load static %}
+
+<div class="sm:hidden " id="products-page">
+  <label for="tabs" class="sr-only">Select product type</label>
+  <select
+    id="tabs"
+    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+  >
+    <option value="{% url 'electronics_products_page' %}">Electronics</option>
+    <option value="{% url 'clothing_products_page' %}">Clothing</option>
+    <option value="{% url 'shoe_products_page' %}">Shoe</option>
+  </select>
+</div>
+<ul
+  class="hidden text-sm font-medium text-center text-gray-500 rounded-lg shadow sm:flex dark:divide-gray-700 dark:text-gray-400"
+>
+  <li class="w-full focus-within:z-10">
+    <a
+      data-url="{% url 'electronics_products_page' %}"
+      class="cursor-pointer inline-block w-full p-4 bg-white border-r border-gray-200 dark:border-gray-700 hover:text-gray-700 hover:bg-gray-50 focus:ring-4 focus:ring-blue-300 focus:outline-none dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700 dark:text-white"
+      aria-current="page"
+      >Electronics Products</a
+    >
+  </li>
+  <li class="w-full focus-within:z-10">
+    <a
+      data-url="{% url 'clothing_products_page' %}"
+      class="cursor-pointer inline-block w-full p-4 bg-white border-r border-gray-200 dark:border-gray-700 hover:text-gray-700 hover:bg-gray-50 focus:ring-4 focus:ring-blue-300 focus:outline-none dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700 dark:text-white"
+      >Clothing Products</a
+    >
+  </li>
+  <li class="w-full focus-within:z-10">
+    <a
+      data-url="{% url 'shoe_products_page' %}"
+      class="cursor-pointer inline-block w-full p-4 bg-white border-r border-gray-200 dark:border-gray-700 hover:text-gray-700 hover:bg-gray-50 focus:ring-4 focus:ring-blue-300 focus:outline-none dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700 dark:text-white"
+      >Shoe Products</a
+    >
+  </li>
+</ul>
+<div id="products-list">{%include 'shop/products/electronics_products_page.html'%}</div>
+{% block scripts %}
+<script src="{% static 'src/js/main.js'%}" defer></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const buttons = document.querySelectorAll("a[data-url]");
+
+    buttons.forEach((button) => {
+      button.addEventListener("click", function (e) {
+        e.preventDefault();
+        const url = this.getAttribute("data-url");
+        fetch(url, {
+          method: "GET",
+          headers: {
+            "X-Requested-With": "XMLHttpRequest",
+          },
+        })
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Network response was not ok");
+            }
+            return response.json();
+          })
+          .then((data) => {
+            if (data.html) {
+              document.getElementById("products-list").innerHTML = data.html;
+            } else {
+              console.error("Failed to load content");
+            }
+          })
+          .catch((error) => console.error("Error:", error));
+      });
+    });
+  });
+</script>
+{% endblock scripts %}
+<!--  -->
+{% endblock index %}

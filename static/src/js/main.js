@@ -38,16 +38,3 @@ document.addEventListener("DOMContentLoaded", function () {
     textMode.textContent = "Light";
   }
 });
-
-document.addEventListener("DOMContentLoaded", function () {
-  const usernameInput = document.getElementById("login_usernameInput");
-  const passwordInput = document.getElementById("login_passwordInput");
-  const errorMessage = document.getElementById("login_error_message");
-
-  usernameInput.addEventListener("input", function () {
-    errorMessage.textContent = "";
-  });
-  passwordInput.addEventListener("input", function () {
-    errorMessage.textContent = "";
-  });
-});

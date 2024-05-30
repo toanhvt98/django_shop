@@ -15,9 +15,20 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
-
+from django.conf.urls.i18n import i18n_patterns
+from django.utils.translation import gettext_lazy as _
+from shop.views import user_login
+from django.views.generic import RedirectView
 urlpatterns = [
-    # path('admin/', admin.site.urls),
-    path('', include('shop.urls')),
-    
+    path(_('admin/'), admin.site.urls),
+    path('admin/login/', user_login),
+    path('en/',include('shop.urls'))
 ]
+
+urlpatterns += i18n_patterns(
+    path('',include('shop.urls')),
+)
+
+admin.site.site_header = 'My project'
+admin.site.index_title = 'Admin'
+admin.site.site_title = 'HTML title from adminsitration'
